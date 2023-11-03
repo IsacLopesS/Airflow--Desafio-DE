@@ -1,4 +1,11 @@
-airflow-data
+logs/
+*.csv
+env/
+airflow-data/airflow-webserver.pid
+airflow-data/airflow.cfg
+airflow-data/airflow.db
+airflow-data/standalone_admin_password.txt
+airflow-data/webserver_config.py
 
 # These are some examples of commonly ignored file patterns.
 # You should customize this list as applicable to your project.

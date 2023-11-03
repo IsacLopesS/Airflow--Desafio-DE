@@ -1,6 +1,8 @@
 # Airflow needs a home. `~/airflow` is the default, but you can put it
 # somewhere else if you prefer (optional)
 export AIRFLOW_HOME=$PWD/airflow-data 
+export AIRFLOW_VAR_MY_EMAIL=isac.silva@indicium.tech
+export AIRFLOW__CORE__LOAD_EXAMPLES=False
 
 # Install Airflow using the constraints file
 AIRFLOW_VERSION=2.6.0

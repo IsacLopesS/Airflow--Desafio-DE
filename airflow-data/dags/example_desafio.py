@@ -7,7 +7,14 @@ from airflow.models import Variable
 import pandas as pd
 import sqlite3
 from pandasql import sqldf
+import os
+from pathlib import Path
 
+path = os.getcwd() 
+path = Path(path)
+#path = str(path.parent.absolute())
+#path = Path(path)
+base_dir = str(path.parent.absolute())+'/Airflow--Desafio-DE'
 # These args will get passed on to each operator
 # You can override them on a per-task basis during operator initialization
 default_args = {
@@ -40,7 +47,7 @@ def export_final_answer():
     return None
 ## Do not change the code above this line-----------------------##
 def join_tables():
-    conn = sqlite3.connect("/home/isac/Documentos/desafioDE/airflow_tooltorial/data/Northwind_small.sqlite")
+    conn = sqlite3.connect(f"{base_dir}/data/Northwind_small.sqlite")
     df_OrderDetail = pd.read_sql_query("SELECT * from 'OrderDetail';",conn)
     df_Order = pd.read_csv("output_orders.csv")
     df_join = pd.merge(df_Order,df_OrderDetail,left_on="Id", right_on="OrderId")
@@ -49,13 +56,17 @@ def join_tables():
                     where ShipCity = "Rio de Janeiro"
                 '''
     resultado = sqldf(consulta)
-    with open('/home/isac/Documentos/desafioDE/airflow_tooltorial/count.txt', 'w') as arquivo:
+    
+    
+
+    with open(f'{base_dir}/count.txt', 'w') as arquivo:
         arquivo.write(str(resultado.total.iloc[0]))
     
 def extract_Orders_table():
-    conn = sqlite3.connect("/home/isac/Documentos/desafioDE/airflow_tooltorial/data/Northwind_small.sqlite")
+    print("============",base_dir)
+    conn = sqlite3.connect(f"{base_dir}/data/Northwind_small.sqlite")
     df = pd.read_sql_query("SELECT * from 'Order';",conn)
-    df.to_csv('/home/isac/Documentos/desafioDE/airflow_tooltorial/output_orders.csv', index=False)
+    df.to_csv(f'{base_dir}/output_orders.csv', index=False)
 
 
 
